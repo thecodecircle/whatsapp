@@ -1,0 +1,18 @@
+<h1>
+	<%= @chat.title %>
+</h1>
+
+<table>
+	<thead>
+		<th>שם</th>
+		<th>כמות הודעות</th>
+	</thead>
+	<tbody>
+		<% @people.each do |person| %>
+			<tr>
+				<td><%= person.name %></td>
+				<td><%= person.messages %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
