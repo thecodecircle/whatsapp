@@ -23,11 +23,8 @@ class ChatsController < ApplicationController
   # POST /chats or /chats.json
   def create
     @chat = Chat.new
-		# file = params[:file]
 		file = params[:chat][:file]
 		@chat.title = file.original_filename.delete_suffix(".txt")
-		# puts "****************************************"
-		# puts file.original_filename
     respond_to do |format|
       if @chat.save
 				people = {}
@@ -55,6 +52,13 @@ class ChatsController < ApplicationController
 				end
 				people.each do |key, value|
 					Person.create(name: key, messages: value, chat_id: @chat.id)
+				end
+				if cookies[:chats].present?
+					chats = JSON.parse(cookies[:chats])
+					chats << @chat.id
+					cookies[:chats] = JSON.generate(chats)
+				else
+					cookies[:chats] = JSON.generate([@chat.id])
 				end
         format.html { redirect_to @chat, notice: "Chat was successfully created." }
         format.json { render :show, status: :created, location: @chat }
