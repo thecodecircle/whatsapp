@@ -1,7 +1,21 @@
-<%= link_to "עוד אחד", root_path %>
-<% if cookies[:chats].present? %>
-	<% JSON.parse(cookies[:chats]).each do |id| %>
-		<% chat = Chat.find(id) %>
-		<%= link_to chat.title, chat %>
-	<% end %>
-<% end %>
+<nav>
+	<div class="">
+		<h1>
+			<%= link_to "סטטיסטיקות", root_path %>
+		</h1>
+	</div>
+	<div class="">
+		<% if cookies[:chats].present? %>
+			<% JSON.parse(cookies[:chats]).each do |id| %>
+				<% chat = Chat.find(id) %>
+				<span>
+					<%= link_to chat.title, chat %>
+				</span>
+			<% end %>
+		<% end %>
+	</div>
+</nav>
+
+<div class="floating">
+	<%= link_to "+", root_path %>
+</div>

@@ -56,9 +56,9 @@ class ChatsController < ApplicationController
 				if cookies[:chats].present?
 					chats = JSON.parse(cookies[:chats])
 					chats << @chat.id
-					cookies[:chats] = JSON.generate(chats)
+					cookies.permanent[:chats] = JSON.generate(chats)
 				else
-					cookies[:chats] = JSON.generate([@chat.id])
+					cookies.permanent[:chats] = JSON.generate([@chat.id])
 				end
         format.html { redirect_to @chat, notice: "Chat was successfully created." }
         format.json { render :show, status: :created, location: @chat }
